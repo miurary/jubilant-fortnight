@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Password Recovery</title>
+<script src="account.js"></script>
+</head>
+<body>
+
+<h1>Password Recovery</h1>
+
+<p>Enter the email address associated with the account.</p>
+
+<p id="error" class="error"></p>
+
+<!-- Create form for requesting the email address of the account -->
+<form name="passRecover" action="" onsubmit="return validateAccountEmail();" method="post">
+	E-mail:
+	<input type="email" name="email" required><br>
+	<input type="submit" value="Recover Password">
+	<input type="button" onclick="location.href='login.html';" value="Log In">
+</form>
+
+
+</body>
+</html>
