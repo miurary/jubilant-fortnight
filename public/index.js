@@ -17,7 +17,7 @@ function titleUpdate(event){
     }
   }
 }
-document.getElementById('filter-search-button').addEventListener('click',titleUpdate);
+//document.getElementById('filter-search-button').addEventListener('click',titleUpdate);
 
 function dateUpdate(event){
   var date, day, month, year, i, input1, input2, input3;
@@ -53,7 +53,7 @@ console.log(input1, input2, input3);
     }
   }
 }
-document.getElementById('filter-search-button').addEventListener('click',dateUpdate);
+//document.getElementById('filter-search-button').addEventListener('click',dateUpdate);
 
 function seriousUpdate(event){
   var input, result, i, serious;
@@ -73,7 +73,7 @@ function seriousUpdate(event){
     }
   }
 }
-document.getElementById('filter-search-button').addEventListener('click', seriousUpdate);
+//document.getElementById('filter-search-button').addEventListener('click', seriousUpdate);
 
 // check given email address
 function checkEmail(email) {
@@ -164,3 +164,54 @@ function validateNewPassword() {
 function openCreateEvent() {
 	window.open("post_event.html", "", "width=500,height=400");
 }
+
+function hasher (password) {
+    var hash = 0;
+    if (password.length == 0) {
+        return hash;
+    }
+    for (var i = 0; i < password.length; i++) {
+        char = password.charCodeAt(i);
+        hash = ((hash<<5)-hash)+char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
+}
+
+function newUser (username, password, email) {
+  var request = new XMLHttpRequest();
+  var requestURL = '/newUser';
+  request.open('POST', requestURL);
+
+  var hashPass = hasher(password);
+
+  var userOb = {
+    user: username,
+    pass: hashPass,
+    email: email
+  };
+
+  var body = JSON.stringify(userOb);
+  request.setRequestHeader('Content-Type', 'application/json');
+
+  request.send(body);
+}
+
+function showModal () {
+
+  var modal = document.getElementById('modal');
+  var modalBackdrop = document.getElementById('modal-backdrop');
+
+  modal.classList.remove('hidden');
+  modalBackdrop.classList.remove('hidden');
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+
+  var signUpButton = document.getElementById('signup-button');
+  if (signUpButton) {
+    signUpButton.addEventListener('click', showModal);
+    console.log("Event listener added");
+  }
+
+});

@@ -42,29 +42,10 @@
 
     <section id="results">
 
-      <div class="post-result" event-day="20" event-month="4" event-year="2018" event-seriousness="Just for fun">
-        <div class="result-contents">
-          <div class="result-info-container">
-            <a href="#" class="result-poster">Ziyu Xiong</a> <span class="result-title">Join my basketball team</span>
-          </div>
-        </div>
-      </div>
+      {{#each post-result}}
+        {{>insert_post}}
+      {{/each}}
 
-      <div class="post-result" event-day="30" event-month="5" event-year="2018" event-seriousness="Play hard">
-        <div class="result-contents">
-          <div class="result-info-container">
-            <a href="#" class="result-poster">Michael Chan</a> <span class="result-title">Play hard, Word hard</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="post-result" event-day="2" event-month="6" event-year="2018" event-seriousness="Not that hard">
-        <div class="result-contents">
-          <div class="result-info-container">
-            <a href="#" class="result-poster">Jordan Clark</a> <span class="result-title">Work out, but not that hard</span>
-          </div>
-        </div>
-      </div>
         <!-- class for the all the results -->
         <!-- <div class="result"> -->
             <!-- class for 1 single result -->

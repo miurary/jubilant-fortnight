@@ -4,9 +4,7 @@
   "description": "Tilted Towers til Death",
   "main": "server.js",
   "scripts": {
-    "build": "handlebars views/partials/insertVideo.handlebars -f public/insertVideoTemplate.js",
-    "start": "node server.js",
-    "prestart": "npm run build"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
