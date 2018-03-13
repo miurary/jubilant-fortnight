@@ -29,6 +29,11 @@ app.get('/home', function(req, res) {
   console.log("== Server status from home", res.statusCode);
 });
 
+app.get('/passChange', function(req, res) {
+  res.status(200).render('passwordChange');
+  console.log("== Server status from pass:", res.statusCode);
+});
+
 app.get('/newPost', function(req, res) {
   res.status(200).render('post_event');
   console.log("== Server status from new post", res.statusCode);
@@ -54,17 +59,18 @@ app.get('/sport/:sportId', function(req, res) {
   app.engine('handlebars', handlebars({
     defaultLayout: 'sportsMain',
   }));
-  var id = req.params.sportId;
+  var idVar = req.params.sportId;
   var end = "-collection";
-  var full = id.concat(end);
+  var full = idVar.concat(end);
+  console.log(full);
   var collection = mongoConnection.collection(full);
   var posts = collection.find({}).toArray(function (err, posts) {
     if (err) {
       res.status(500).send("Error fetching");
     }
     else {
-      res.status(200).render('sports_page', {name: id}, {post: posts});
-      console.log("== Server status from sport page", res.statusCode, "id:", id);
+      res.status(200).render('sports_page', {name: idVar, post: posts});
+      console.log("== Server status from sport page", res.statusCode, "id:", idVar);
     }
   });
 });
@@ -96,6 +102,7 @@ else {
 
 app.post('/addPost', function(req, res) {
   if (req.body && req.body.title && req.body.day && req.body.month && req.body.year && req.body.seriousness && req.body.collection) {
+    console.log("Broken:", req.body.collection);
     var collection = mongoConnection.collection(req.body.collection);
     collection.insertOne({
       title: req.body.title,

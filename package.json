@@ -6,6 +6,7 @@
   "scripts": {
     "build": "handlebars views/partials/insertPost.handlebars -f public/insertPostTemplate.js",
     "build2": "handlebars views/partials/sport.handlebars -f public/sportTemplate.js",
+    "build3": "handlebars views/partials/sportTitle.handlebars -f public/sportTitleTemplate.js",
     "start": "node server.js",
     "prestart": "npm run build"
   },

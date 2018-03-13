@@ -382,8 +382,10 @@ function postAccept() {
   var month = document.getElementById('popup-month').value;
   var year = document.getElementById('popup-year').value;
   var serious = document.getElementById('popup-serious-input').value;
-  var post = document.getElementById('sport-name');
+  var post = document.getElementById('grab-this');
+  console.log(post);
   var sport = post.getAttribute('data-name');
+  console.log("Sport:", sport);
   var temp = "-collection";
   var collection = sport.concat(temp);
 
@@ -391,6 +393,12 @@ function postAccept() {
 
   hidePostModal();
   clearPostInputs();
+}
+
+function insertTitle() {
+  var appendTitle = Handlebars.templates.sportTitle();
+  var sportsPage = document.getElementById('sports-page-content');
+  sportsPage.insertAdjacentHTML('afterbegin', appendTitle);
 }
 
 function insertPost(postOb) {
@@ -428,6 +436,24 @@ function addPost(title, day, month, year, serious, collection) {
   });
 
   request.send(body);
+}
+
+function forgotPassword() {
+  var username = document.getElementById('username').value;
+  if (username == "") {
+    alert("Please enter a username!");
+  }
+  else {
+    changePassword();
+  }
+}
+
+function changePassword() {
+  location.assign("http://os1.engr.oregonstate.edu:3001/passChange");
+}
+
+function saveNewPass() {
+  console.log("hi");
 }
 
 window.addEventListener('DOMContentLoaded', function() {
@@ -470,6 +496,21 @@ window.addEventListener('DOMContentLoaded', function() {
   var addPostButton = document.getElementById('post-video-button');
   if (addPostButton) {
     addPostButton.addEventListener('click', postAccept);
+  }
+
+  var sportsPage = document.getElementById('sports-page-content');
+  if (sportsPage) {
+    //insertTitle();
+  }
+
+  var forgotPass = document.getElementById('forgot-update-button');
+  if (forgotPass) {
+    forgotPass.addEventListener('click', forgotPassword);
+  }
+
+  var changePassButton = document.getElementById('change-pass-button');
+  if (changePassButton) {
+    changePassButton.addEventListener('click', saveNewPass);
   }
 
   window.addEventListener('keypress', keyPress);
