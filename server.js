@@ -5,7 +5,7 @@ var handlebars = require('express-handlebars');
 var MongoClient = require('mongodb').MongoClient;
 var bodyParser = require('body-parser')
 var app = express();
-var port = process.env.PORT || 4000;
+var port = process.env.PORT || 3001;
 var array = require('./sportData');
 
 var mongoURL = 'mongodb://cs290_miurary:cs290_miurary@classmongo.engr.oregonstate.edu:27017/cs290_miurary';
@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
   res.status(200).render('login');
-  console.log("== Server status", res.statusCode);
+  console.log("== Server status from /", res.statusCode);
 });
 
 app.get('/home', function(req, res) {
@@ -34,13 +34,43 @@ app.get('/newPost', function(req, res) {
   console.log("== Server status from new post", res.statusCode);
 });
 
+/*app.get('/', function (req, res) {
+  var collection = mongoConnection.collection('final');
+  var videos = collection.find({}).toArray(function (err, videos) {
+    if (err) {
+      res.status(500).send("Error fetching");
+    }
+    else {
+      res.status(200).render('index', {
+        video: videos
+      });
+      console.log("== Server status", res.statusCode);
+    }
+  })
+
+}); */
+
 app.get('/sport/:sportId', function(req, res) {
+  app.engine('handlebars', handlebars({
+    defaultLayout: 'sportsMain',
+  }));
   var id = req.params.sportId;
-  res.status(200).render('sports_page', {name: id});
-  console.log("== Server status from sport page", res.statusCode);
+  var end = "-collection";
+  var full = id.concat(end);
+  var collection = mongoConnection.collection(full);
+  var posts = collection.find({}).toArray(function (err, posts) {
+    if (err) {
+      res.status(500).send("Error fetching");
+    }
+    else {
+      res.status(200).render('sports_page', {name: id}, {post: posts});
+      console.log("== Server status from sport page", res.statusCode, "id:", id);
+    }
+  });
 });
 
 app.use(express.static('public'));
+//app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('*', function (req, res) {
   res.status(404).render('404');
@@ -62,6 +92,24 @@ if (req.body && req.body.user && req.body.pass && req.body.email) {
 else {
   res.status(400).send("User signup failed");
 }
+});
+
+app.post('/addPost', function(req, res) {
+  if (req.body && req.body.title && req.body.day && req.body.month && req.body.year && req.body.seriousness && req.body.collection) {
+    var collection = mongoConnection.collection(req.body.collection);
+    collection.insertOne({
+      title: req.body.title,
+      day: req.body.day,
+      month: req.body.month,
+      year: req.body.year,
+      seriousness: req.body.seriousness
+    })
+    res.status(200).send("Successfully added post");
+    console.log("==post added");
+  }
+  else {
+    res.status(400).send("Error adding post");
+  }
 });
 
 app.post('/verifyLogIn', function (req, res) {

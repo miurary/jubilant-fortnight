@@ -1,3 +1,7 @@
+h6 {
+  color: red;
+}
+
 .hidden {
   display: none;
 }
@@ -12,7 +16,7 @@
   background-color: rgba(0, 0, 0, 0.45);
 }
 
-#modal {
+#modal, #post-event-modal {
   position: fixed;
   top: 0;
   bottom: 0;

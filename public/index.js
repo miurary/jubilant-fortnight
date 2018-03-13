@@ -207,6 +207,24 @@ function showModal () {
   modalBackdrop.classList.remove('hidden');
 }
 
+function showPostModal () {
+  var modal = document.getElementById('post-event-modal');
+  var backdrop = document.getElementById('modal-backdrop');
+
+  modal.classList.remove('hidden');
+  backdrop.classList.remove('hidden');
+}
+
+function hidePostModal () {
+  var modal = document.getElementById('post-event-modal');
+  var backdrop = document.getElementById('modal-backdrop');
+
+  modal.classList.add('hidden');
+  backdrop.classList.add('hidden');
+
+  clearPostInputs();
+}
+
 function hideModal () {
 
   var modal = document.getElementById('modal');
@@ -339,6 +357,79 @@ function viewPost() {
   //fill modal with info
 }
 
+function postEvent() {
+  showPostModal();
+}
+
+function clearPostInputs() {
+
+  var inputs = [
+    document.getElementById('popup-title-input'),
+    document.getElementById('popup-day'),
+    document.getElementById('popup-month'),
+    document.getElementById('popup-year')
+  ];
+
+  inputs.forEach(function (input) {
+    input.value = '';
+  });
+
+}
+
+function postAccept() {
+  var title = document.getElementById('popup-title-input').value;
+  var day  = document.getElementById('popup-day').value;
+  var month = document.getElementById('popup-month').value;
+  var year = document.getElementById('popup-year').value;
+  var serious = document.getElementById('popup-serious-input').value;
+  var post = document.getElementById('sport-name');
+  var sport = post.getAttribute('data-name');
+  var temp = "-collection";
+  var collection = sport.concat(temp);
+
+  addPost(title, day, month, year, serious, collection);
+
+  hidePostModal();
+  clearPostInputs();
+}
+
+function insertPost(postOb) {
+  var appendPost = Handlebars.templates.insertPost(postOb);
+  var posts = document.getElementById('results');
+  posts.insertAdjacentHTML('beforeend', appendPost);
+}
+
+function addPost(title, day, month, year, serious, collection) {
+  var request = new XMLHttpRequest();
+  var requestURL = '/addPost';
+  request.open('POST', requestURL);
+
+  var postOb = {
+    title: title,
+    day: day,
+    month: month,
+    year: year,
+    seriousness: serious,
+    username: "none",
+    collection: collection
+  };
+
+  var body = JSON.stringify(postOb);
+  request.setRequestHeader('Content-Type', 'application/json');
+
+  request.addEventListener('load', function(event) {
+    if (event.target.status !== 200) {
+      var message = event.target.response;
+      alert("Error storing post");
+    }
+    else {
+      insertPost(postOb);
+    }
+  });
+
+  request.send(body);
+}
+
 window.addEventListener('DOMContentLoaded', function() {
 
   var signUpButton = document.getElementById('signup-button');
@@ -357,7 +448,6 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   var sportsButton = document.getElementsByClassName('sport-button');
-  console.log(sportsButton);
   for (var i = 0; i < sportsButton.length; i++) {
     sportsButton[i].addEventListener('click', goSportsPage);
   }
@@ -366,6 +456,21 @@ window.addEventListener('DOMContentLoaded', function() {
   for (var i = 0; i < postButton.length; i++) {
     postButton[i].addEventListener('click', viewPost);
   }*/
+
+  var postEventButton = document.getElementById('filter-post-button');
+  if (postEventButton) {
+    postEventButton.addEventListener('click', postEvent);
+  }
+
+  var postCloseButton = document.getElementById('popup-x');
+  if (postCloseButton) {
+    postCloseButton.addEventListener('click', hidePostModal);
+  }
+
+  var addPostButton = document.getElementById('post-video-button');
+  if (addPostButton) {
+    addPostButton.addEventListener('click', postAccept);
+  }
 
   window.addEventListener('keypress', keyPress);
 

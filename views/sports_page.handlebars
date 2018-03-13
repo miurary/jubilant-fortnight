@@ -2,7 +2,7 @@
 
 <main class="content">
 
-    <h1>{{name}}</h1>
+    <h1 id="sport-name" data-name="{{name}}">{{name}}</h1>
 
     <!-- filter part -->
     <aside class="filter-container">
@@ -44,8 +44,8 @@
 
     <section id="results">
 
-      {{#each post-result}}
-        {{>insert_post}}
+      {{#each post}}
+        {{>insertPost}}
       {{/each}}
 
         <!-- class for the all the results -->
@@ -72,6 +72,7 @@
             <div class="popup-header">
                 <h3>Event Info<font size="1">(do not leave blanks)</font></h3>
                 <button type="button" id="popup-x" class="hide-button">x</button>
+                <button type="button" id="post-video-button" class="hide-button">Post</button>
             </div>
             <!--info of the post -->
             <div class="popup-info">
