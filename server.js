@@ -40,6 +40,7 @@ if (req.body && req.body.user && req.body.pass && req.body.email) {
     email: req.body.email
   })
   res.status(200).send("Successfully added user");
+  console.log("== User Added");
 }
 else {
   res.status(400).send("User signup failed");

@@ -206,12 +206,64 @@ function showModal () {
   modalBackdrop.classList.remove('hidden');
 }
 
+function hideModal () {
+
+  var modal = document.getElementById('modal');
+  var modalBackdrop = document.getElementById('modal-backdrop');
+
+  modal.classList.add('hidden');
+  modalBackdrop.classList.add('hidden');
+
+  clearModalInputs();
+}
+
+function clearModalInputs() {
+
+  var inputs = [
+    document.getElementById('username-field'),
+    document.getElementById('email-field'),
+    document.getElementById('password-field'),
+    document.getElementById('confirm-password-field')
+  ];
+
+  inputs.forEach(function (input) {
+    input.value = '';
+  });
+
+}
+
+function addUser() {
+  var username = document.getElementById('username-field').value;
+  var password = document.getElementById('password-field').value;
+  var email = document.getElementById('email-field').value;
+  var conPassword = document.getElementById('confirm-password-field').value;
+
+  if (!username || !password || !email || !conPassword || password != conPassword) {
+    alert("Haha!");
+  }
+
+  else {
+    newUser(username, password, email);
+    hideModal();
+  }
+}
+
 window.addEventListener('DOMContentLoaded', function() {
 
   var signUpButton = document.getElementById('signup-button');
   if (signUpButton) {
     signUpButton.addEventListener('click', showModal);
     console.log("Event listener added");
+  }
+
+  var hideModalButton = document.getElementById('modal-close');
+  if (hideModalButton) {
+    hideModalButton.addEventListener('click', hideModal);
+  }
+
+  var createAccountButton = document.getElementById('confirm-button');
+  if (createAccountButton) {
+    createAccountButton.addEventListener('click', addUser);
   }
 
 });

@@ -22,23 +22,22 @@
   <div id="modal-backdrop" class="hidden"></div>
   <div class="hidden" id="modal">
     <h1>Create Account</h1>
+    <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
 
     <!-- create the error section -->
     <p id="error" class="error"></p>
 
     <!-- Create form for creating an account -->
-    <form name="createAccount" action="" onsubmit="return validateAccountCreate();" method="post">
-    	User name:
-    	<input type="text" name="username" required><br>
-    	E-mail:
-    	<input type="email" name="email" required><br>
-    	Password:
-    	<input type="password" name="pass" required><br>
+    	<label>User name</label>
+    	<input id="username-field" type="text" name="username" required><br>
+    	<label>E-mail</label>
+    	<input id="email-field" type="email" name="email" required><br>
+    	<label>Password</label>
+    	<input id="password-field" type="password" name="pass" required><br>
 
     	<!-- Have user confirm their password by entering again -->
 
-    	Confirm Password:
-    	<input type="password" name="passconfirm" required><br>
+    	<label>Confirm Password</label>
+    	<input id="confirm-password-field" type="password" name="passconfirm" required><br>
     	<button id="confirm-button" class="action-button">Create Account</button>
-    </form>
   </div>
