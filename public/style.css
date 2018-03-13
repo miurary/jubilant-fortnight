@@ -6,6 +6,10 @@ h6 {
   display: none;
 }
 
+#password {
+  color: black;
+}
+
 #modal-backdrop {
   position: fixed;
   top: 0;
@@ -87,7 +91,7 @@ input{
 .data, .time{
 	padding:5px 100px;
 	text-align:left;
-	color:#696969;
+	color: black;
 	font-weight:light;
 	font-size: 25px;
 }
@@ -267,7 +271,7 @@ h3{
 .filter-input-container{
 	margin-top:10px;
 	text-align:left;
-	color:white;
+	color:black;
 	margin-right:0;
 }
 .title-filter-input{
@@ -277,7 +281,7 @@ h3{
 
 .filter-input{
 	width:20%;
-	color:white;
+	color:black;
 }
 
 .account-input,

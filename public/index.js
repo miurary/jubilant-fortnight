@@ -176,6 +176,7 @@ function hasher (password) {
         hash = ((hash<<5)-hash)+char;
         hash = hash & hash; // Convert to 32bit integer
     }
+    console.log("hash:", hash);
     return hash;
 }
 
@@ -257,8 +258,14 @@ function addUser() {
   var email = document.getElementById('email-field').value;
   var conPassword = document.getElementById('confirm-password-field').value;
 
-  if (!username || !password || !email || !conPassword || password != conPassword) {
-    alert("Haha!");
+  if (!username || !password || !email || !conPassword) {
+    alert("Please fill in all fields!");
+  }
+  else if (password !== conPassword) {
+    alert("Please enter matching passwords");
+  }
+  else if (password.length < 8) {
+    alert("Password is too short!");
   }
 
   else {
@@ -407,6 +414,50 @@ function insertPost(postOb) {
   posts.insertAdjacentHTML('beforeend', appendPost);
 }
 
+function changePassword(username) {
+  location.assign("http://os1.engr.oregonstate.edu:3001/passChange");
+}
+
+function saveNewPass() {
+  var username = document.getElementById('username-change-pass').value;
+  var pass = document.getElementById('password-change-pass').value;
+  var conPass = document.getElementById('con-pass-change').value;
+  console.log("Pass:", pass, "conPass:", conPass);
+  if (pass !== conPass) {
+    alert("Passwords must match!");
+  }
+  else if (pass.length < 8) {
+    alert("Password is too short!");
+  }
+  else {
+    var request = new XMLHttpRequest();
+    var requestURL = '/saveNewPass';
+    request.open('POST', requestURL);
+
+    var hashed = hasher(pass);
+
+    var newOb = {
+      user: username,
+      pass: hashed
+    };
+
+    var body = JSON.stringify(newOb);
+    request.setRequestHeader('Content-Type', 'application/json');
+
+    request.addEventListener('load', function(event) {
+      if (event.target.status !== 200) {
+        var message = event.target.response;
+        alert("Could not change password");
+      }
+      else {
+        alert("Password changed!");
+      }
+    });
+
+    request.send(body);
+  }
+}
+
 function addPost(title, day, month, year, serious, collection) {
   var request = new XMLHttpRequest();
   var requestURL = '/addPost';
@@ -440,20 +491,7 @@ function addPost(title, day, month, year, serious, collection) {
 
 function forgotPassword() {
   var username = document.getElementById('username').value;
-  if (username == "") {
-    alert("Please enter a username!");
-  }
-  else {
-    changePassword();
-  }
-}
-
-function changePassword() {
-  location.assign("http://os1.engr.oregonstate.edu:3001/passChange");
-}
-
-function saveNewPass() {
-  console.log("hi");
+  changePassword(username);
 }
 
 window.addEventListener('DOMContentLoaded', function() {
@@ -511,6 +549,21 @@ window.addEventListener('DOMContentLoaded', function() {
   var changePassButton = document.getElementById('change-pass-button');
   if (changePassButton) {
     changePassButton.addEventListener('click', saveNewPass);
+  }
+
+  var titleSearch = document.getElementById('filter-search-button');
+  if (titleSearch) {
+    titleSearch.addEventListener('click',titleUpdate);
+  }
+
+  var dateSearch = document.getElementById('filter-search-button');
+  if (dateSearch) {
+    dateSearch.addEventListener('click',dateUpdate);
+  }
+
+  var seriousSearch = document.getElementById('filter-search-button');
+  if (seriousSearch) {
+    seriousSearch.addEventListener('click', seriousUpdate);
   }
 
   window.addEventListener('keypress', keyPress);

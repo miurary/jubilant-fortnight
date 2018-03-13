@@ -83,6 +83,20 @@ app.get('*', function (req, res) {
   console.log("== Server status", res.statusCode);
 });
 
+app.post('/saveNewPass', function(req, res) {
+
+  if (req.body && req.body.user && req.body.pass) {
+    console.log("User:", req.body.user, "Pass:", req.body.pass);
+    var collection = mongoConnection.collection('users');
+    collection.updateOne({user: req.body.user}, {pass: req.body.pass})
+    res.status(200).send("Successfully updated password");
+    console.log("==password changed");
+  }
+  else {
+    res.status(400).send("Failed password change");
+  }
+});
+
 app.post('/newUser', function (req, res) {
 
 if (req.body && req.body.user && req.body.pass && req.body.email) {
@@ -126,7 +140,7 @@ app.post('/verifyLogIn', function (req, res) {
     var query = {user: req.body.user};
     collection.find(query).toArray(function(err, result) {
       if (err) throw (err);
-      if (result && result[0].pass && result[0].pass == req.body.pass) {
+      if (result && result[0].pass && req.body.pass && result[0].pass == req.body.pass) {
         res.status(200).send("Passwords verified");
         console.log("== Passwords match");
       }
