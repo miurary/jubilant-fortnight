@@ -5,7 +5,7 @@ var handlebars = require('express-handlebars');
 var MongoClient = require('mongodb').MongoClient;
 var bodyParser = require('body-parser')
 var app = express();
-var port = process.env.PORT || 3001;
+var port = process.env.PORT || 4000;
 var array = require('./sportData');
 
 var mongoURL = 'mongodb://cs290_miurary:cs290_miurary@classmongo.engr.oregonstate.edu:27017/cs290_miurary';
@@ -29,10 +29,15 @@ app.get('/home', function(req, res) {
   console.log("== Server status from home", res.statusCode);
 });
 
+app.get('/newPost', function(req, res) {
+  res.status(200).render('post_event');
+  console.log("== Server status from new post", res.statusCode);
+});
+
 app.get('/sport/:sportId', function(req, res) {
   var id = req.params.sportId;
   res.status(200).render('sports_page', {name: id});
-  console.log("== Server status from home", res.statusCode);
+  console.log("== Server status from sport page", res.statusCode);
 });
 
 app.use(express.static('public'));
@@ -68,11 +73,11 @@ app.post('/verifyLogIn', function (req, res) {
       if (err) throw (err);
       if (result && result[0].pass && result[0].pass == req.body.pass) {
         res.status(200).send("Passwords verified");
-        console.log("==passwords match");
+        console.log("== Passwords match");
       }
       else {
         res.status(300).send("Passwords don't match");
-        console.log("==passwords don't match");
+        console.log("== Passwords don't match");
       }
     });
   }
