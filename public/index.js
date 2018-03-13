@@ -250,7 +250,7 @@ function addUser() {
 }
 
 function successfulLogIn() {
-  var request = new XMLHttpRequest();
+  /*var request = new XMLHttpRequest();
   console.log(document.body);
   request.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -260,7 +260,34 @@ function successfulLogIn() {
   var requestURL = '/home';
   request.open("GET", requestURL, true);
 
-  request.send();
+  request.send();*/
+  location.assign("http://os1.engr.oregonstate.edu:3001/home");
+}
+
+function goSportsPage() {
+  /*var request = new XMLHttpRequest();
+
+  var sportOb = {
+    name: sport
+  };
+
+  var body = JSON.stringify(sportOb);
+
+  request.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.body.innerHTML = this.responseText;
+    }
+  };
+  var requestURL = '/sport';
+  request.open("GET", requestURL, true);
+
+  request.send(body);
+  */
+
+  var sport = event.target.id;
+  var url = "http://os1.engr.oregonstate.edu:3001/sport/";
+  var full = url.concat(sport);
+  location.assign(full);
 }
 
 function verifyLogIn(username, password) {
@@ -312,7 +339,6 @@ window.addEventListener('DOMContentLoaded', function() {
   var signUpButton = document.getElementById('signup-button');
   if (signUpButton) {
     signUpButton.addEventListener('click', showModal);
-    console.log("Event listener added");
   }
 
   var hideModalButton = document.getElementById('modal-close');
@@ -323,6 +349,12 @@ window.addEventListener('DOMContentLoaded', function() {
   var createAccountButton = document.getElementById('confirm-button');
   if (createAccountButton) {
     createAccountButton.addEventListener('click', addUser);
+  }
+
+  var sportsButton = document.getElementsByClassName('sport-button');
+  console.log(sportsButton);
+  for (var i = 0; i < sportsButton.length; i++) {
+    sportsButton[i].addEventListener('click', goSportsPage);
   }
 
   window.addEventListener('keypress', keyPress);

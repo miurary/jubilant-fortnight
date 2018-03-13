@@ -6,6 +6,7 @@ var MongoClient = require('mongodb').MongoClient;
 var bodyParser = require('body-parser')
 var app = express();
 var port = process.env.PORT || 3001;
+var array = require('./sportData');
 
 var mongoURL = 'mongodb://cs290_miurary:cs290_miurary@classmongo.engr.oregonstate.edu:27017/cs290_miurary';
 var mongoConnection = null;
@@ -24,7 +25,13 @@ app.get('/', function (req, res) {
 });
 
 app.get('/home', function(req, res) {
-  res.status(200).render('homepage');
+  res.status(200).render('homepage', {sports: array});
+  console.log("== Server status from home", res.statusCode);
+});
+
+app.get('/sport/:sportId', function(req, res) {
+  var id = req.params.sportId;
+  res.status(200).render('sports_page', {name: id});
   console.log("== Server status from home", res.statusCode);
 });
 
