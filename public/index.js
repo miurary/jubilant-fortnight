@@ -334,6 +334,11 @@ function keyPress(e) {
   }
 }
 
+function viewPost() {
+  //make modal pop up
+  //fill modal with info
+}
+
 window.addEventListener('DOMContentLoaded', function() {
 
   var signUpButton = document.getElementById('signup-button');
@@ -356,6 +361,11 @@ window.addEventListener('DOMContentLoaded', function() {
   for (var i = 0; i < sportsButton.length; i++) {
     sportsButton[i].addEventListener('click', goSportsPage);
   }
+
+  /*var postButton = document.getElementsByClassName('');
+  for (var i = 0; i < postButton.length; i++) {
+    postButton[i].addEventListener('click', viewPost);
+  }*/
 
   window.addEventListener('keypress', keyPress);
 
