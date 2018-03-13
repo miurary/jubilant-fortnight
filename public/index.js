@@ -166,6 +166,7 @@ function openCreateEvent() {
 }
 
 function hasher (password) {
+
     var hash = 0;
     if (password.length == 0) {
         return hash;
@@ -248,6 +249,64 @@ function addUser() {
   }
 }
 
+function successfulLogIn() {
+  var request = new XMLHttpRequest();
+  console.log(document.body);
+  request.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.body.innerHTML = this.responseText;
+    }
+  };
+  var requestURL = '/home';
+  request.open("GET", requestURL, true);
+
+  request.send();
+}
+
+function verifyLogIn(username, password) {
+  var request = new XMLHttpRequest();
+  var requestURL = '/verifyLogIn';
+  request.open('POST', requestURL);
+
+  var hashPass = hasher(password);
+
+  var logInOb = {
+    user: username,
+    pass: hashPass
+  };
+
+  var body = JSON.stringify(logInOb);
+  request.setRequestHeader('Content-Type', 'application/json');
+
+  request.addEventListener('load', function(event) {
+    if (event.target.status !== 200) {
+      var message = event.target.response;
+      alert ("error checking log in");
+    }
+    else {
+      successfulLogIn();
+    }
+  });
+
+  request.send(body);
+}
+
+function setupLogin() {
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+  if (username && password) {
+    verifyLogIn(username, password);
+  }
+}
+
+function keyPress(e) {
+  var keyCode = e.keyCode;
+  if (keyCode == 13) {
+    console.log("==enter pressed");
+    setupLogin();
+  }
+}
+
 window.addEventListener('DOMContentLoaded', function() {
 
   var signUpButton = document.getElementById('signup-button');
@@ -265,5 +324,7 @@ window.addEventListener('DOMContentLoaded', function() {
   if (createAccountButton) {
     createAccountButton.addEventListener('click', addUser);
   }
+
+  window.addEventListener('keypress', keyPress);
 
 });

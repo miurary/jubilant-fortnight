@@ -23,6 +23,11 @@ app.get('/', function (req, res) {
   console.log("== Server status", res.statusCode);
 });
 
+app.get('/home', function(req, res) {
+  res.status(200).render('homepage');
+  console.log("== Server status from home", res.statusCode);
+});
+
 app.use(express.static('public'));
 
 app.get('*', function (req, res) {
@@ -45,6 +50,25 @@ if (req.body && req.body.user && req.body.pass && req.body.email) {
 else {
   res.status(400).send("User signup failed");
 }
+});
+
+app.post('/verifyLogIn', function (req, res) {
+
+  if (req.body && req.body.user && req.body.pass) {
+    var collection = mongoConnection.collection('users');
+    var query = {user: req.body.user};
+    collection.find(query).toArray(function(err, result) {
+      if (err) throw (err);
+      if (result && result[0].pass && result[0].pass == req.body.pass) {
+        res.status(200).send("Passwords verified");
+        console.log("==passwords match");
+      }
+      else {
+        res.status(300).send("Passwords don't match");
+        console.log("==passwords don't match");
+      }
+    });
+  }
 });
 
 MongoClient.connect (mongoURL, function (err, connection) {
