@@ -22,3 +22,261 @@
   overflow: scroll;
   color: white;
 }
+
+*{
+	text-align: center;
+	/* background-color:#172E38; */
+}
+
+.logo-container{
+	margin:0;
+	padding:15px;
+}
+.page-header{
+	color: white;
+	font-size: 100px;
+	font-family:arial;
+	margin:0;
+}
+
+.passwordRecovery{
+	color: white;
+	margin-bottom:10px;
+	font-weight:thin;
+	font-size: 20px;
+}
+
+.newPassword{
+	color: white;
+	margin-bottom:10px;
+	font-weight:thin;
+	font-size: 20px;
+}
+
+.login{
+	color: white;
+	margin-bottom:10px;
+	font-weight:thin;
+	font-size: 18px;
+}
+
+input{
+	border-width:thin;
+	border-style:solid;
+	border-color: #696969;
+	text-align:center;
+	width:70%;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+.forgot-part{
+	color:blue;
+	background-color:#498A69;
+	padding: 5px 5px;
+	border:10px pink;
+}
+
+.account-username, .account-password,
+.userName, .email, .password,
+.confirmPassword, .title, .location,
+.data, .time{
+	padding:5px 100px;
+	text-align:left;
+	color:#696969;
+	font-weight:light;
+	font-size: 25px;
+}
+
+.description{
+	color:#696969;
+	font-weight:light;
+	font-size: 25px;
+	float: left;
+	width: 30%;
+}
+.seriousness{
+	color:#696969;
+	text-align:left;
+}
+
+
+.account-username input{
+	color: #498A69;;
+}
+
+.data input{
+	color: #498A69;
+}
+
+.time input{
+	color: #498A69;
+}
+
+.account-username, .account-password{
+	position:center;
+	padding:5px,0px;
+	text-align:center;
+}
+
+h1{
+	color: white;
+	background-color:#4C5458; //#5D6062;
+	font-size: 75px;
+	font-family:arial;
+	margin-top:35px;
+	margin-bottom:15px;
+	margin-left:20px;
+	margin-right:20px;
+	padding: 10px;
+}
+
+.bottons input{
+	margin-top:15px;
+	background-color:#498A69;
+	border:#498A69;
+	color:white;
+	width: 150px;
+	height:50px;
+	font-size: 16px;
+	font-family:arial;
+	margin-right:10px;
+	margin-left:10px;
+	text-align:center;
+}
+.search-button,
+.post-button{
+	margin-top:15px;
+	background-color:#498A69;
+	border:#498A69;
+	color:white;
+	height:30px;
+	font-size: 16px;
+	font-family:arial;
+	margin-right:10px;
+        margin-left:10px;
+        text-align:center;
+}
+
+.loginbutton {
+	background-color:#498A69;
+	text-align:center;
+	border:#498A69;
+	color:white;
+	width: 150px;
+	height:50px;
+	font-size: 16px;
+	font-family:arial;
+	margin-top:10px;
+}
+
+.category-option input{
+	background-color:#498A69;
+	border:#498A69;
+	color:white;
+	width: 150px;
+	height:50px;
+	font-size: 16px;
+	margin-right:5px;
+	margin-left:5px;
+	text-align:center;
+	margin-bottom:5px;
+	margin-top:15px;
+}
+
+p{
+	font-family:arial;
+	color:white;
+	size: 18px;
+	text-align:left;
+	margin-left:10%;
+	margin-right:10%;
+	margin-top:10px;;
+}
+
+h2 {
+	color:#696969;
+	text-align:left;
+	font-size: 50px;
+	margin-left:10%;
+	margin-right:5%;
+	margin-bottom:0;
+	margin-top:1%;
+}
+.seriousnessTitle{
+	color:#696969;
+        font-weight:light;
+        font-size: 25px;
+	float: left;
+	margin-right:50px;
+	margin-left:100px;
+}
+.seriousness{
+	position: absolute;
+	width:0px;
+	float:left;
+	height: 0px;
+	left:0;
+	padding: 0px 75px;
+	border:0;
+	margin:35px;
+}
+
+.main_info{
+	 width: 60%;
+	float: left;
+}
+
+.filter-container{
+	width: 20%;
+	float: left;
+	padding: 15px;
+	margin-top:2%;
+	margin-left:2%;
+	border: 1px solid #696969;
+}
+
+section{
+	width: 70%;
+	margin-top:15px;
+	border: 1px solid #696969;
+	float: left;
+	margin-left: 1%;
+	margin-right: 2%;
+}
+
+.post-result{
+	margin:15px;
+	text-align:left;
+	color:white;
+}
+
+h3{
+	color:#498A69;
+        text-align:left;
+        font-size: 25px;
+        margin-right:0px;
+        margin-bottom:0px;
+	margin-top:0px;
+}
+
+.filter-input-container{
+	margin-top:10px;
+	text-align:left;
+	color:white;
+	margin-right:0;
+}
+.title-filter-input{
+	width:70%;
+	color:white;
+}
+
+.filter-input{
+	width:20%;
+	color:white;
+}
+
+.account-input,
+.user-input{
+	color:white;
+}
